@@ -3,29 +3,21 @@ package main
 import (
 	"context"
 	"crypto/ecdsa"
+	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/njoysubho/supplychain-blockchain-service/contracts"
-	"github.com/njoysubho/supplychain-blockchain-service/service"
-	"github.com/pace/bricks/http"
 	"log"
 	"math/big"
+
 )
 
-func main() {
-	scmEthClient := setupEthClient()
-	scmService := service.SupplyChainService{SCMEthClient: scmEthClient}
-	r := http.Router()
-	r.HandleFunc("/v1/sellers", scmService.RegisterSeller).Methods("POST")
-	r.HandleFunc("/v1/sellers/{id}", scmService.GetSellerById)
-	_ = http.Server(r).ListenAndServe()
-}
-
-func setupEthClient() *contracts.SupplyChainEthClient {
-	client, err := ethclient.Dial("https://rinkeby.infura.io/v3/<infura-key>")
-	address := common.HexToAddress("0x21818de2feF10F2D44130ae1D5DD29c228E12914")
+func main(){
+	client,err:=ethclient.Dial("https://rinkeby.infura.io/v3/<infura-key>")
+	if err != nil {
+		log.Fatal(err)
+	}
 	privateKey, err := crypto.HexToECDSA("")
 	if err != nil {
 		log.Fatal(err)
@@ -44,13 +36,18 @@ func setupEthClient() *contracts.SupplyChainEthClient {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	auth := bind.NewKeyedTransactor(privateKey)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)     // in wei
-	auth.GasLimit = uint64(300000) // in units
+	auth.GasLimit = uint64(3000000) // in units
 	auth.GasPrice = gasPrice
+	address, tx, instance, err:=contracts.DeployContracts(auth,client)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(address.Hex())
+	fmt.Println(tx.Hash().Hex())
 
-	cOps := bind.CallOpts{From: address, Pending: false}
-	scmEthClient := contracts.SupplyChainEthClient{ContractAddress: address, FromAddress: fromAddress, Client: client, TOps: auth, COps: &cOps}
-	return &scmEthClient
+	_ = instance
 }
