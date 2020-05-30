@@ -32,6 +32,25 @@ func (s *SupplyChainService) RegisterSeller(w http.ResponseWriter, r *http.Reque
 	json.NewEncoder(w).Encode(createdSeller)
 }
 
+func (s *SupplyChainService) RegisterBuyer(w http.ResponseWriter, r *http.Request) {
+	buyer := domain.Buyer{}
+	json.NewDecoder(r.Body).Decode(&buyer)
+	ksb := contracts.KisanSupplyChainBuyer{
+		BuyerId:     uuid.New(),
+		Name:        buyer.Name,
+		Uid:         buyer.UID,
+		Pan:         buyer.PAN,
+		Tan:         buyer.TAN,
+		BankAccount: buyer.BankAccount,
+	}
+	go s.SCMEthClient.RegisterBuyer(&ksb)
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(202)
+	createdBuyer := domain.Buyer{}
+	createdBuyer.ID = ksb.BuyerId
+	json.NewEncoder(w).Encode(createdBuyer)
+}
+
 func (s *SupplyChainService) GetSellerById(w http.ResponseWriter, r *http.Request) {
 	pathvars := mux.Vars(r)
 	sellerId := pathvars["id"]
@@ -43,4 +62,17 @@ func (s *SupplyChainService) GetSellerById(w http.ResponseWriter, r *http.Reques
 	seller := domain.Seller{}
 	w.Header().Add("content-type", "application/json")
 	json.NewEncoder(w).Encode(seller.FromKSB(ksb))
+}
+
+func (s *SupplyChainService) GetBuyerById(w http.ResponseWriter, r *http.Request) {
+	pathvars := mux.Vars(r)
+	buyerId := pathvars["id"]
+	ksb, err := s.SCMEthClient.GetBuyer(buyerId)
+	if err != nil {
+		log.Print(err)
+		w.WriteHeader(400)
+	}
+	buyer := domain.Buyer{}
+	w.Header().Add("content-type", "application/json")
+	json.NewEncoder(w).Encode(buyer.FromKSBuyer(ksb))
 }

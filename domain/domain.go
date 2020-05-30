@@ -23,11 +23,23 @@ func (s *Seller) FromKSB(beneficiary contracts.KisanSupplyChainBeneficiary) *Sel
 	return s
 }
 
+
+
 type Buyer struct {
 	VerifiedActor
 	BuyerId     string
 	TAN         string
 	BankAccount string
+}
+
+func (b *Buyer) FromKSBuyer(buyer contracts.KisanSupplyChainBuyer) *Buyer {
+	b.ID = buyer.BuyerId
+	b.BankAccount = buyer.BankAccount
+	b.Name = buyer.Name
+	b.UID = buyer.Uid
+	b.PAN = buyer.Pan
+	b.TAN = buyer.Tan
+	return b
 }
 
 type Sales struct {

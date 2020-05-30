@@ -23,6 +23,13 @@ func (s *SupplyChainEthClient) RegisterBeneficiary(seller *KisanSupplyChainBenef
 	return tx, err
 }
 
+func (s *SupplyChainEthClient) RegisterBuyer(buyer *KisanSupplyChainBuyer) (*types.Transaction, error) {
+	s.refreshTransactionOpts(s.TOps)
+	instance, _ := NewContracts(s.ContractAddress, s.Client)
+	tx, err := instance.RegisterBuyer(s.TOps, buyer.BuyerId, buyer.Name, buyer.Uid, buyer.Pan, buyer.Tan, buyer.BankAccount)
+	return tx, err
+}
+
 func (s *SupplyChainEthClient) refreshTransactionOpts(ops *bind.TransactOpts) {
 	nonce, _ := s.Client.PendingNonceAt(context.Background(), s.FromAddress)
 	gasPrice, _ := s.Client.SuggestGasPrice(context.Background())
@@ -34,5 +41,12 @@ func (s *SupplyChainEthClient) GetBeneficiary(sellerId string) (KisanSupplyChain
 
 	instance, _ := NewContracts(s.ContractAddress, s.Client)
 	ksb, err := instance.GetBenificiary(s.COps, sellerId)
+	return ksb, err
+}
+
+func (s *SupplyChainEthClient) GetBuyer(buyerId string) (KisanSupplyChainBuyer, error) {
+
+	instance, _ := NewContracts(s.ContractAddress, s.Client)
+	ksb, err := instance.GetBuyer(s.COps, buyerId)
 	return ksb, err
 }
