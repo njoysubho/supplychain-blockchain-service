@@ -20,7 +20,7 @@ spec:
           secretName: secretro-key
       containers:
       - name: supply-chain-blockchain
-        image: eu.gcr.io/goal-service/scm:0.0.1
+        image: eu.gcr.io/goal-service/scm:TAG
         volumeMounts:
         - name: google-cloud-key
           mountPath: /var/secrets/google
