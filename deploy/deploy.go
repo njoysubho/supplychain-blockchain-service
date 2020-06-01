@@ -8,17 +8,20 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/njoysubho/supplychain-blockchain-service/contracts"
+	"github.com/njoysubho/supplychain-blockchain-service/service"
 	"log"
 	"math/big"
 
 )
 
 func main(){
-	client,err:=ethclient.Dial("https://rinkeby.infura.io/v3/<infura-key>")
+	infuraKey:=service.GetSecretByKey("infura-key")
+	pk:=service.GetSecretByKey("private-key")
+	client,err:=ethclient.Dial("https://rinkeby.infura.io/v3/"+infuraKey)
 	if err != nil {
 		log.Fatal(err)
 	}
-	privateKey, err := crypto.HexToECDSA("")
+	privateKey, err := crypto.HexToECDSA(pk)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -50,3 +50,10 @@ func (s *SupplyChainEthClient) GetBuyer(buyerId string) (KisanSupplyChainBuyer, 
 	ksb, err := instance.GetBuyer(s.COps, buyerId)
 	return ksb, err
 }
+
+func (s *SupplyChainEthClient) CreateInvoice(sales *KisanSupplyChainSales) (*types.Transaction, error) {
+	s.refreshTransactionOpts(s.TOps)
+	instance, _ := NewContracts(s.ContractAddress, s.Client)
+	tx, err := instance.CreateInvoice(s.TOps,sales.InvoiceId,sales.Item,sales.Unit,sales.Amount,sales.AmountPerUnit,sales.BeneficiaryId,sales.BuyerId)
+	return tx, err
+}

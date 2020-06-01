@@ -22,6 +22,7 @@ func main() {
 	r.HandleFunc("/v1/sellers/{id}", scmService.GetSellerById)
 	r.HandleFunc("/v1/buyers", scmService.RegisterBuyer).Methods("POST")
 	r.HandleFunc("/v1/buyers/{id}", scmService.GetBuyerById)
+	r.HandleFunc("/v1/sales", scmService.CreateSales).Methods("POST")
 	_ = http.Server(r).ListenAndServe()
 }
 
@@ -29,7 +30,7 @@ func setupEthClient() *contracts.SupplyChainEthClient {
 	infuraKey:=service.GetSecretByKey("infura-key")
 	pk:=service.GetSecretByKey("private-key")
 	client, err := ethclient.Dial("https://rinkeby.infura.io/v3/"+infuraKey)
-	address := common.HexToAddress("0x21818de2feF10F2D44130ae1D5DD29c228E12914")
+	address := common.HexToAddress("0x349732cc2f6656b6Eb1bB2832FE601F7701d8d07")
 	privateKey, err := crypto.HexToECDSA(pk)
 	if err != nil {
 		log.Fatal(err)
