@@ -7,7 +7,9 @@ import (
 	"github.com/njoysubho/supplychain-blockchain-service/domain"
 	"github.com/pace/bricks/maintenance/log"
 	"github.com/pborman/uuid"
+	"math/big"
 	"net/http"
+	"time"
 )
 
 type SupplyChainService struct {
@@ -75,4 +77,25 @@ func (s *SupplyChainService) GetBuyerById(w http.ResponseWriter, r *http.Request
 	buyer := domain.Buyer{}
 	w.Header().Add("content-type", "application/json")
 	json.NewEncoder(w).Encode(buyer.FromKSBuyer(ksb))
+}
+
+func (s *SupplyChainService) CreateSales(w http.ResponseWriter, r *http.Request) {
+	sales := domain.Sales{}
+	json.NewDecoder(r.Body).Decode(&sales)
+	kisanSupplySales := contracts.KisanSupplyChainSales{
+		InvoiceId:     uuid.New(),
+		Item:          sales.Item,
+		Unit:          sales.Unit,
+		Amount:        big.NewInt(int64(sales.Amount)),
+		AmountPerUnit: big.NewInt(int64(sales.AmountPerUnit)),
+		SalesDate:     big.NewInt(time.Now().Unix()),
+		BeneficiaryId: sales.BeneficiaryId,
+		BuyerId:       sales.BuyerId,
+	}
+	go s.SCMEthClient.CreateInvoice(&kisanSupplySales)
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(202)
+	createdSales := domain.Sales{}
+	createdSales.InvoiceId = kisanSupplySales.InvoiceId
+	json.NewEncoder(w).Encode(createdSales)
 }

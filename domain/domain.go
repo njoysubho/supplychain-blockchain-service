@@ -46,10 +46,11 @@ type Sales struct {
 	InvoiceId     string
 	Item          string
 	Unit          string
-	amount        uint
-	amountPerUnit uint
+	Amount        uint
+	AmountPerUnit uint
 	SalesDate     uint
-	BeneficiaryId uint
-	BuyerId       uint
+	BeneficiaryId string
+	BuyerId       string
 	Status        string
 }
+
