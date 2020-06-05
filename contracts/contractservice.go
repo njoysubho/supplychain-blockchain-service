@@ -57,3 +57,17 @@ func (s *SupplyChainEthClient) CreateInvoice(sales *KisanSupplyChainSales) (*typ
 	tx, err := instance.CreateInvoice(s.TOps,sales.InvoiceId,sales.Item,sales.Unit,sales.Amount,sales.AmountPerUnit,sales.BeneficiaryId,sales.BuyerId)
 	return tx, err
 }
+
+func (s *SupplyChainEthClient) ApproveBuyer(buyerId string,invoiceId string) (*types.Transaction, error) {
+	s.refreshTransactionOpts(s.TOps)
+	instance, _ := NewContracts(s.ContractAddress, s.Client)
+	tx, err := instance.ApproveBuyer(s.TOps,buyerId,invoiceId)
+	return tx, err
+}
+
+func (s *SupplyChainEthClient) ApproveSeller(sellerId string,invoiceId string) (*types.Transaction, error) {
+	s.refreshTransactionOpts(s.TOps)
+	instance, _ := NewContracts(s.ContractAddress, s.Client)
+	tx, err := instance.ApproveBeneficiary(s.TOps,sellerId,invoiceId)
+	return tx, err
+}

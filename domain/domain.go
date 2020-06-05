@@ -54,3 +54,8 @@ type Sales struct {
 	Status        string
 }
 
+type Approval struct{
+	ApproverId string
+	InvoiceId string
+}
+
