@@ -99,3 +99,19 @@ func (s *SupplyChainService) CreateSales(w http.ResponseWriter, r *http.Request)
 	createdSales.InvoiceId = kisanSupplySales.InvoiceId
 	json.NewEncoder(w).Encode(createdSales)
 }
+
+func (s *SupplyChainService) ApproveByBuyer(w http.ResponseWriter, r *http.Request) {
+	approval := domain.Approval{}
+	json.NewDecoder(r.Body).Decode(&approval)
+	go s.SCMEthClient.ApproveBuyer(approval.ApproverId, approval.InvoiceId)
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(202)
+}
+
+func (s *SupplyChainService) ApproveBySeller(w http.ResponseWriter, r *http.Request) {
+	approval := domain.Approval{}
+	json.NewDecoder(r.Body).Decode(&approval)
+	go s.SCMEthClient.ApproveSeller(approval.ApproverId, approval.InvoiceId)
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(202)
+}

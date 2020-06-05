@@ -41,7 +41,7 @@ func TestMain(m *testing.M) {
 
 
 func TestCreateBeneficiary(t *testing.T) {
-    
+
 	tx,err:=client.Instance.RegisterBeneficiary(client.Auth,uuid.New(),"TestBeneficiary","TestUID",
 		"TestPAN","UBI1234567")
 	if err !=nil{
