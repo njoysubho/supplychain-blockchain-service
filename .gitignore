@@ -1,4 +1,6 @@
 application.properties
 service-ac.json
 vendor
+node_modules
+**/node_modules
 

@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/njoysubho/supplychain-blockchain-service/contracts"
+import "github.com/njoysubho/supplychain-blockchain-service/scm-solidity"
 
 type VerifiedActor struct {
 	ID   string

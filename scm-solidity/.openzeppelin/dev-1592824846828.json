@@ -1,0 +1,446 @@
+{
+  "contracts": {
+    "SupplyChainContract": {
+      "address": "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab",
+      "constructorCode": "608060405234801561001057600080fd5b50613826806100206000396000f3fe",
+      "bodyBytecodeHash": "730824acbe655a9a0566d47b3830b9fa531e684ea2eac5208a0b78f02f5ad438",
+      "localBytecodeHash": "77b667eda8c680fb300d8a2e244837b1283f9aada99ca60c01945be328b6fffe",
+      "deployedBytecodeHash": "77b667eda8c680fb300d8a2e244837b1283f9aada99ca60c01945be328b6fffe",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_array:50<t_uint256>": {
+          "id": "t_array:50<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "50",
+          "kind": "array",
+          "label": "uint256[50]"
+        },
+        "t_struct<AccessControlUpgradeSafe.RoleData>": {
+          "id": "t_struct<AccessControlUpgradeSafe.RoleData>",
+          "kind": "struct",
+          "label": "AccessControlUpgradeSafe.RoleData",
+          "members": [
+            {
+              "label": "members",
+              "astId": 156,
+              "type": "t_struct<EnumerableSet.AddressSet>",
+              "src": "1655:32:2"
+            },
+            {
+              "label": "adminRole",
+              "astId": 158,
+              "type": "t_bytes32",
+              "src": "1697:17:2"
+            }
+          ]
+        },
+        "t_struct<EnumerableSet.AddressSet>": {
+          "id": "t_struct<EnumerableSet.AddressSet>",
+          "kind": "struct",
+          "label": "EnumerableSet.AddressSet",
+          "members": [
+            {
+              "label": "_inner",
+              "astId": 663,
+              "type": "t_struct<EnumerableSet.Set>",
+              "src": "4644:10:4"
+            }
+          ]
+        },
+        "t_struct<EnumerableSet.Set>": {
+          "id": "t_struct<EnumerableSet.Set>",
+          "kind": "struct",
+          "label": "EnumerableSet.Set",
+          "members": [
+            {
+              "label": "_values",
+              "astId": 479,
+              "type": "t_array:dyn<t_bytes32>",
+              "src": "1213:17:4"
+            },
+            {
+              "label": "_indexes",
+              "astId": 483,
+              "type": "t_mapping<t_uint256>",
+              "src": "1364:37:4"
+            }
+          ]
+        },
+        "t_bytes32": {
+          "id": "t_bytes32",
+          "kind": "elementary",
+          "label": "bytes32"
+        },
+        "t_array:dyn<t_bytes32>": {
+          "id": "t_array:dyn<t_bytes32>",
+          "valueType": "t_bytes32",
+          "length": "dyn",
+          "kind": "array",
+          "label": "bytes32[]"
+        },
+        "t_mapping<t_uint256>": {
+          "id": "t_mapping<t_uint256>",
+          "valueType": "t_uint256",
+          "label": "mapping(key => uint256)",
+          "kind": "mapping"
+        },
+        "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>": {
+          "id": "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>",
+          "valueType": "t_struct<AccessControlUpgradeSafe.RoleData>",
+          "label": "mapping(key => AccessControlUpgradeSafe.RoleData)",
+          "kind": "mapping"
+        },
+        "t_array:49<t_uint256>": {
+          "id": "t_array:49<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "49",
+          "kind": "array",
+          "label": "uint256[49]"
+        },
+        "t_struct<SupplyChainContract.Seller>": {
+          "id": "t_struct<SupplyChainContract.Seller>",
+          "kind": "struct",
+          "label": "SupplyChainContract.Seller",
+          "members": [
+            {
+              "label": "sellerId",
+              "astId": 1036,
+              "type": "t_string",
+              "src": "881:15:6"
+            },
+            {
+              "label": "name",
+              "astId": 1038,
+              "type": "t_string",
+              "src": "906:11:6"
+            },
+            {
+              "label": "uid",
+              "astId": 1040,
+              "type": "t_string",
+              "src": "927:10:6"
+            },
+            {
+              "label": "pan",
+              "astId": 1042,
+              "type": "t_string",
+              "src": "947:10:6"
+            },
+            {
+              "label": "bankAccount",
+              "astId": 1044,
+              "type": "t_string",
+              "src": "967:18:6"
+            },
+            {
+              "label": "isActive",
+              "astId": 1046,
+              "type": "t_bool",
+              "src": "995:13:6"
+            }
+          ]
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_mapping<t_struct<SupplyChainContract.Seller>>": {
+          "id": "t_mapping<t_struct<SupplyChainContract.Seller>>",
+          "valueType": "t_struct<SupplyChainContract.Seller>",
+          "label": "mapping(key => SupplyChainContract.Seller)",
+          "kind": "mapping"
+        },
+        "t_struct<SupplyChainContract.Buyer>": {
+          "id": "t_struct<SupplyChainContract.Buyer>",
+          "kind": "struct",
+          "label": "SupplyChainContract.Buyer",
+          "members": [
+            {
+              "label": "buyerId",
+              "astId": 1049,
+              "type": "t_string",
+              "src": "1044:14:6"
+            },
+            {
+              "label": "name",
+              "astId": 1051,
+              "type": "t_string",
+              "src": "1068:11:6"
+            },
+            {
+              "label": "uid",
+              "astId": 1053,
+              "type": "t_string",
+              "src": "1089:10:6"
+            },
+            {
+              "label": "pan",
+              "astId": 1055,
+              "type": "t_string",
+              "src": "1109:10:6"
+            },
+            {
+              "label": "tan",
+              "astId": 1057,
+              "type": "t_string",
+              "src": "1129:10:6"
+            },
+            {
+              "label": "bankAccount",
+              "astId": 1059,
+              "type": "t_string",
+              "src": "1149:18:6"
+            },
+            {
+              "label": "isActive",
+              "astId": 1061,
+              "type": "t_bool",
+              "src": "1177:13:6"
+            }
+          ]
+        },
+        "t_mapping<t_struct<SupplyChainContract.Buyer>>": {
+          "id": "t_mapping<t_struct<SupplyChainContract.Buyer>>",
+          "valueType": "t_struct<SupplyChainContract.Buyer>",
+          "label": "mapping(key => SupplyChainContract.Buyer)",
+          "kind": "mapping"
+        },
+        "t_struct<SupplyChainContract.Sales>": {
+          "id": "t_struct<SupplyChainContract.Sales>",
+          "kind": "struct",
+          "label": "SupplyChainContract.Sales",
+          "members": [
+            {
+              "label": "invoiceId",
+              "astId": 1064,
+              "type": "t_string",
+              "src": "1226:16:6"
+            },
+            {
+              "label": "item",
+              "astId": 1066,
+              "type": "t_string",
+              "src": "1252:11:6"
+            },
+            {
+              "label": "unit",
+              "astId": 1068,
+              "type": "t_string",
+              "src": "1273:11:6"
+            },
+            {
+              "label": "amount",
+              "astId": 1070,
+              "type": "t_uint256",
+              "src": "1294:14:6"
+            },
+            {
+              "label": "amountPerUnit",
+              "astId": 1072,
+              "type": "t_uint256",
+              "src": "1318:21:6"
+            },
+            {
+              "label": "salesDate",
+              "astId": 1074,
+              "type": "t_uint256",
+              "src": "1349:17:6"
+            },
+            {
+              "label": "beneficiaryId",
+              "astId": 1076,
+              "type": "t_string",
+              "src": "1376:20:6"
+            },
+            {
+              "label": "buyerId",
+              "astId": 1078,
+              "type": "t_string",
+              "src": "1406:14:6"
+            },
+            {
+              "label": "status",
+              "astId": 1080,
+              "type": "t_string",
+              "src": "1430:13:6"
+            },
+            {
+              "label": "isValid",
+              "astId": 1082,
+              "type": "t_bool",
+              "src": "1453:12:6"
+            }
+          ]
+        },
+        "t_mapping<t_struct<SupplyChainContract.Sales>>": {
+          "id": "t_mapping<t_struct<SupplyChainContract.Sales>>",
+          "valueType": "t_struct<SupplyChainContract.Sales>",
+          "label": "mapping(key => SupplyChainContract.Sales)",
+          "kind": "mapping"
+        },
+        "t_mapping<t_string>": {
+          "id": "t_mapping<t_string>",
+          "valueType": "t_string",
+          "label": "mapping(key => string)",
+          "kind": "mapping"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 50,
+          "type": "t_bool",
+          "src": "757:24:1"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 53,
+          "type": "t_bool",
+          "src": "876:25:1"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "______gap",
+          "astId": 118,
+          "type": "t_array:50<t_uint256>",
+          "src": "1982:29:1"
+        },
+        {
+          "contract": "ContextUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/GSN/Context.sol",
+          "label": "__gap",
+          "astId": 43,
+          "type": "t_array:50<t_uint256>",
+          "src": "1277:25:0"
+        },
+        {
+          "contract": "AccessControlUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/access/AccessControl.sol",
+          "label": "_roles",
+          "astId": 163,
+          "type": "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>",
+          "src": "1727:44:2"
+        },
+        {
+          "contract": "AccessControlUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/access/AccessControl.sol",
+          "label": "__gap",
+          "astId": 408,
+          "type": "t_array:49<t_uint256>",
+          "src": "6927:25:2"
+        },
+        {
+          "contract": "PausableUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/utils/Pausable.sol",
+          "label": "_paused",
+          "astId": 889,
+          "type": "t_bool",
+          "src": "825:20:5"
+        },
+        {
+          "contract": "PausableUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/utils/Pausable.sol",
+          "label": "__gap",
+          "astId": 978,
+          "type": "t_array:49<t_uint256>",
+          "src": "2073:25:5"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "seed",
+          "astId": 990,
+          "type": "t_uint256",
+          "src": "311:9:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "sellerDetailsOf",
+          "astId": 1109,
+          "type": "t_mapping<t_struct<SupplyChainContract.Seller>>",
+          "src": "1681:41:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "buyerDetailsOf",
+          "astId": 1113,
+          "type": "t_mapping<t_struct<SupplyChainContract.Buyer>>",
+          "src": "1728:39:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "salesDetailOf",
+          "astId": 1117,
+          "type": "t_mapping<t_struct<SupplyChainContract.Sales>>",
+          "src": "1773:38:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "sellerApprovals",
+          "astId": 1123,
+          "type": "t_mapping<t_string>",
+          "src": "1817:60:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "buyerApprovals",
+          "astId": 1129,
+          "type": "t_mapping<t_string>",
+          "src": "1883:59:6"
+        },
+        {
+          "contract": "SupplyChainContract",
+          "path": "contracts/SupplyChainContract.sol",
+          "label": "invoiceApprovalStatus",
+          "astId": 1133,
+          "type": "t_mapping<t_string>",
+          "src": "1948:47:6"
+        }
+      ],
+      "warnings": {
+        "hasConstructor": false,
+        "hasSelfDestruct": false,
+        "hasDelegateCall": false,
+        "hasInitialValuesInDeclarations": false,
+        "uninitializedBaseContracts": []
+      }
+    }
+  },
+  "solidityLibs": {},
+  "proxies": {
+    "scm/SupplyChainContract": [
+      {
+        "address": "0xCfEB869F69431e42cdB54A4F4f105C19C080A601",
+        "version": "1.0.0",
+        "implementation": "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab",
+        "admin": "0x5b1869D9A4C187F2EAa108f3062412ecf0526b24",
+        "kind": "Upgradeable"
+      }
+    ]
+  },
+  "manifestVersion": "2.2",
+  "version": "1.0.0",
+  "proxyAdmin": {
+    "address": "0x5b1869D9A4C187F2EAa108f3062412ecf0526b24"
+  }
+}

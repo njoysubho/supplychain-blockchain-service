@@ -6,7 +6,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/njoysubho/supplychain-blockchain-service/contracts"
+	"github.com/njoysubho/supplychain-blockchain-service/scm-solidity"
 	"math/big"
 	"net/http"
 	"net/http/httptest"
@@ -28,7 +28,7 @@ func Setup() {
 
 	contractBackend := backends.NewSimulatedBackend(gAlloc, 3000000)
 	contractAddress, _,_, _ := contracts.DeployContracts(auth,contractBackend)
-	ethClient:=contracts.SupplyChainEthClient{
+	ethClient:= SupplyChainEthClient{
 		ContractAddress: contractAddress,
 		FromAddress:     auth.From,
 		Client:          contractBackend,

@@ -1,4 +1,4 @@
-package contracts
+package service
 
 import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -42,7 +42,7 @@ func TestMain(m *testing.M) {
 
 func TestCreateBeneficiary(t *testing.T) {
 
-	tx,err:=client.Instance.RegisterBeneficiary(client.Auth,uuid.New(),"TestBeneficiary","TestUID",
+	tx,err:= client.Instance.RegisterBeneficiary(client.Auth,uuid.New(),"TestBeneficiary","TestUID",
 		"TestPAN","UBI1234567")
 	if err !=nil{
 		t.Fail()
@@ -54,7 +54,7 @@ func TestCreateBeneficiary(t *testing.T) {
 
 func TestCreateBuyer(t *testing.T) {
 
-	tx,err:=client.Instance.RegisterBuyer(client.Auth,uuid.New(),"TestBuyer","TestUID",
+	tx,err:= client.Instance.RegisterBuyer(client.Auth,uuid.New(),"TestBuyer","TestUID",
 		"TestPAN","TestTan","ICIC123456")
 	if err !=nil{
 		t.Fail()

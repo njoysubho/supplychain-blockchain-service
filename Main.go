@@ -7,7 +7,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/njoysubho/supplychain-blockchain-service/contracts"
 	"github.com/njoysubho/supplychain-blockchain-service/service"
 	"github.com/pace/bricks/http"
 	"log"
@@ -26,7 +25,7 @@ func main() {
 	_ = http.Server(r).ListenAndServe()
 }
 
-func setupEthClient() *contracts.SupplyChainEthClient {
+func setupEthClient() *service.SupplyChainEthClient {
 	infuraKey:=service.GetSecretByKey("infura-key")
 	pk:=service.GetSecretByKey("private-key")
 	client, err := ethclient.Dial("https://rinkeby.infura.io/v3/"+infuraKey)
@@ -56,6 +55,6 @@ func setupEthClient() *contracts.SupplyChainEthClient {
 	auth.GasPrice = gasPrice
 
 	cOps := bind.CallOpts{From: address, Pending: false}
-	scmEthClient := contracts.SupplyChainEthClient{ContractAddress: address, FromAddress: fromAddress, Client: client, TOps: auth, COps: &cOps}
+	scmEthClient := service.SupplyChainEthClient{ContractAddress: address, FromAddress: fromAddress, Client: client, TOps: auth, COps: &cOps}
 	return &scmEthClient
 }
