@@ -3,7 +3,7 @@ package service
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/njoysubho/supplychain-blockchain-service/contracts"
+	"github.com/njoysubho/supplychain-blockchain-service/scm-solidity"
 	"github.com/njoysubho/supplychain-blockchain-service/domain"
 	"github.com/pace/bricks/maintenance/log"
 	"github.com/pborman/uuid"
@@ -13,7 +13,7 @@ import (
 )
 
 type SupplyChainService struct {
-	SCMEthClient *contracts.SupplyChainEthClient
+	SCMEthClient *SupplyChainEthClient
 }
 
 func (s *SupplyChainService) RegisterSeller(w http.ResponseWriter, r *http.Request) {

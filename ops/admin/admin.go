@@ -3,15 +3,15 @@ package main
 import (
 	"context"
 	"crypto/ecdsa"
-	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/magiconair/properties"
 	"github.com/njoysubho/supplychain-blockchain-service/scm-solidity"
 	"github.com/njoysubho/supplychain-blockchain-service/service"
 	"log"
 	"math/big"
-
 )
 
 func main(){
@@ -43,14 +43,29 @@ func main(){
 	auth := bind.NewKeyedTransactor(privateKey)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)     // in wei
-	auth.GasLimit = uint64(3000000) // in units
+	auth.GasLimit = uint64(3500000) // in units
 	auth.GasPrice = gasPrice
-	address, tx, instance, err:=contracts.DeployContracts(auth,client)
+
+	props:=properties.MustLoadFile("application.properties",properties.UTF8)
+	contract:=props.MustGet("migrate.contractAddress")
+	proxy:=props.MustGet("migrate.proxy")
+	instance, err:= contracts.NewContracts(common.HexToAddress(contract),client)
+	refreshTransactionOpts(auth,client)
+	log.Println(proxy)
+	log.Println(common.HexToAddress(proxy))
+	instance.AddAdmin(auth,common.HexToAddress(proxy))
+	refreshTransactionOpts(auth,client)
+	tx,_:=instance.RegisterBuyer(auth,"a","","","","","")
+	log.Println(tx.Hash().String())
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(address.Hex())
-	fmt.Println(tx.Hash().Hex())
-
 	_ = instance
+}
+
+func refreshTransactionOpts(ops *bind.TransactOpts, backend bind.ContractBackend) {
+	nonce, _ := backend.PendingNonceAt(context.Background(), ops.From)
+	gasPrice, _ := backend.SuggestGasPrice(context.Background())
+	ops.Nonce = big.NewInt(int64(nonce))
+	ops.GasPrice = gasPrice
 }

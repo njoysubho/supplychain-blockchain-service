@@ -3,7 +3,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - master
+      - paused #Stop for now
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}

@@ -1,0 +1,21 @@
+{
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "@openzeppelin/cli": "^2.8.2",
+    "@openzeppelin/contracts-ethereum-package": "^3.0.0",
+    "@openzeppelin/test-environment": "^0.1.4",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "ganache-cli": "^6.9.1",
+    "mocha": "^7.0.1",
+    "web3": "^1.0.0-beta.26"
+  },
+  "license": "ISC",
+  "main": "",
+  "name": "scm-solidity",
+  "scripts": {
+    "test": "oz compile && mocha --exit --recursive test"
+  },
+  "version": "1.0.0"
+}
