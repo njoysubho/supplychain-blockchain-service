@@ -5,7 +5,12 @@ const chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 const expect = chai.expect
 const should = chai.should();
-
+const {
+    BN,           // Big Number support
+    constants,    // Common constants, like the zero address and largest integers
+    expectEvent,  // Assertions for emitted events
+    expectRevert, // Assertions for transactions that should fail
+} = require('@openzeppelin/test-helpers');
 const Scm = contract.fromArtifact('SupplyChainContract');
 
 describe('scm-test', () => {
@@ -103,7 +108,25 @@ describe("seller test",()=>{
         await this.scmContract.registerSeller("seller1", "seller1name", "seller1uid", "pan"
             , "",{from:owner}).should.be.rejected;
     });
-})
+});
+
+describe("test invoice",()=>{
+    it('should create invoice for valid transaction',  async ()=> {
+        await this.scmContract.registerSeller("seller1", "seller1name", "seller1uid", "pan","bankAccount",{from:owner});
+        await this.scmContract.registerBuyer("buyer1", "buyer1name", "buyer1uid", "pan","tan","bankAccount",{from:owner});
+        const invoice = await this.scmContract.createInvoice("invoiceId","XEBF","100","2500","25","seller1","buyer1",{from:owner})
+        expectEvent(invoice,'ItemSold',{
+            sellerId:'seller1',
+            buyerId: 'buyer1',
+            invoiceId:'invoiceId'
+        })
+    });
+
+    it('should not create invoice for unknown seller',  async ()=> {
+        await this.scmContract.registerBuyer("buyer1", "buyer1name", "buyer1uid", "pan","tan","bankAccount",{from:owner});
+        await this.scmContract.createInvoice("invoiceId","XEBF","100","2500","25","seller1","buyer1",{from:owner}).should.be.rejected;
+    });
+});
 
 });
 
