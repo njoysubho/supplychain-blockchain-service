@@ -5,6 +5,7 @@
     "@openzeppelin/cli": "^2.8.2",
     "@openzeppelin/contracts-ethereum-package": "^3.0.0",
     "@openzeppelin/test-environment": "^0.1.4",
+    "@openzeppelin/test-helpers": "^0.5.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "ganache-cli": "^6.9.1",
